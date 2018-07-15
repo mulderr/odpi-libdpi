@@ -1,4 +1,4 @@
-{-# options_ghc -fno-warn-missing-signatures #-}
+{-# options_ghc -fno-warn-missing-signatures -fno-warn-name-shadowing #-}
 {-# language
     BangPatterns
   , DeriveGeneric
