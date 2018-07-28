@@ -429,7 +429,7 @@ instance Storable PoolCreateParams where
 
 data QueryInfo
   = QueryInfo
-  { queryInfo_name :: CStringLen
+  { queryInfo_name :: ByteString
   , queryInfo_typeInfo :: DataTypeInfo
   , queryInfo_nullOk :: Bool
   } deriving Show
@@ -438,7 +438,7 @@ instance Storable QueryInfo where
   sizeOf _ = {#sizeof QueryInfo #}
   alignment _ = {#alignof QueryInfo #}
   peek p = QueryInfo
-    <$> ((,) <$> {#get QueryInfo->name #} p <*> fmap fromIntegral ({#get QueryInfo->nameLength #} p))
+    <$> (((,) <$> {#get QueryInfo->name #} p <*> fmap fromIntegral ({#get QueryInfo->nameLength #} p)) >>= B.packCStringLen)
     <*> (DataTypeInfo
           <$> fmap toE ({#get QueryInfo->typeInfo.oracleTypeNum #} p)
           <*> fmap toE ({#get QueryInfo->typeInfo.defaultNativeTypeNum #} p)
