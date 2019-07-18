@@ -40,31 +40,204 @@ dpiFailure = {#const DPI_FAILURE #}
 
 -- * Public Enumerations
 
-{#enum AuthMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum ConnCloseMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum CreateMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum DeqMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum DeqNavigation {underscoreToCase} deriving (Show, Eq) #}
-{#enum EventType {underscoreToCase} deriving (Show, Eq) #}
-{#enum ExecMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum FetchMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum MessageDeliveryMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum MessageState {underscoreToCase} deriving (Show, Eq) #}
-{#enum NativeTypeNum {underscoreToCase} deriving (Show, Eq, Generic) #}
-{#enum OpCode {underscoreToCase} deriving (Show, Eq) #}
-{#enum OracleTypeNum {underscoreToCase} deriving (Show, Eq) #}
-{#enum PoolCloseMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum PoolGetMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum Purity {underscoreToCase} deriving (Show, Eq) #}
-{#enum ShutdownMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum StartupMode {underscoreToCase} deriving (Show, Eq) #}
-{#enum StatementType {underscoreToCase} deriving (Show, Eq) #}
--- {#enum SubscrGroupingClass {underscoreToCase} deriving (Show, Eq) #}
--- {#enum SubscrGroupingType {underscoreToCase} deriving (Show, Eq) #}
-{#enum SubscrNamespace {underscoreToCase} deriving (Show, Eq) #}
-{#enum SubscrProtocol {underscoreToCase} deriving (Show, Eq) #}
-{#enum SubscrQOS {underscoreToCase} deriving (Show, Eq) #}
-{#enum Visibility {underscoreToCase} deriving (Show, Eq) #}
+{#enum define AuthMode
+  { DPI_MODE_AUTH_DEFAULT as ModeAuthDefault
+  , DPI_MODE_AUTH_SYSDBA as ModeAuthSysdba
+  , DPI_MODE_AUTH_SYSOPER as ModeAuthSysoper
+  , DPI_MODE_AUTH_PRELIM as ModeAuthPrelim
+  , DPI_MODE_AUTH_SYSASM as ModeAuthSysasm
+  , DPI_MODE_AUTH_SYSBKP as ModeAuthSysbkp
+  , DPI_MODE_AUTH_SYSDGD as ModeAuthSysdgd
+  , DPI_MODE_AUTH_SYSKMT as ModeAuthSyskmt
+  , DPI_MODE_AUTH_SYSRAC as ModeAuthSysrac
+  } deriving (Show, Eq) #}
+{#enum define ConnCloseMode
+  { DPI_MODE_CONN_CLOSE_DEFAULT as ModeConnCloseDefault
+  , DPI_MODE_CONN_CLOSE_DROP as ModeConnCloseDrop
+  , DPI_MODE_CONN_CLOSE_RETAG as ModeConnCloseRetag
+  } deriving (Show, Eq) #}
+{#enum define CreateMode
+  { DPI_MODE_CREATE_DEFAULT as ModeCreateDefault
+  , DPI_MODE_CREATE_THREADED as ModeCreateThreaded
+  , DPI_MODE_CREATE_EVENTS as ModeCreateEvents
+  } deriving (Show, Eq) #}
+{#enum define DeqMode
+  { DPI_MODE_DEQ_BROWSE as ModeDeqBrowse
+  , DPI_MODE_DEQ_LOCKED as ModeDeqLocked
+  , DPI_MODE_DEQ_REMOVE as ModeDeqRemove
+  , DPI_MODE_DEQ_REMOVE_NO_DATA as ModeDeqRemoveNoData
+  } deriving (Show, Eq) #}
+{#enum define DeqNavigation
+  { DPI_DEQ_NAV_FIRST_MSG as DeqNavFirstMsg
+  , DPI_DEQ_NAV_NEXT_TRANSACTION as DeqNavNextTransaction
+  , DPI_DEQ_NAV_NEXT_MSG as DeqNavNextMsg
+  } deriving (Show, Eq) #}
+{#enum define EventType
+  { DPI_EVENT_NONE as EventNode
+  , DPI_EVENT_STARTUP as EventStartup
+  , DPI_EVENT_SHUTDOWN as EventShutdown
+  , DPI_EVENT_SHUTDOWN_ANY as EventShutdownAny
+  , DPI_EVENT_DEREG as EventDereg
+  , DPI_EVENT_OBJCHANGE as EventObjchange
+  , DPI_EVENT_QUERYCHANGE as EventQuerychange
+  , DPI_EVENT_AQ as EventAq
+  } deriving (Show, Eq) #}
+{#enum define ExecMode
+  { DPI_MODE_EXEC_DEFAULT as ModeExecDefault
+  , DPI_MODE_EXEC_DESCRIBE_ONLY as ModeExecDescribeOnly
+  , DPI_MODE_EXEC_COMMIT_ON_SUCCESS as ModeExecCommitOnSuccess
+  , DPI_MODE_EXEC_BATCH_ERRORS as ModeExecBatchErrors
+  , DPI_MODE_EXEC_PARSE_ONLY as ModeExecParseOnly
+  , DPI_MODE_EXEC_ARRAY_DML_ROWCOUNTS as ModeExecArrayDmlRowcounts
+  } deriving (Show, Eq) #}
+{#enum define FetchMode
+  { DPI_MODE_FETCH_NEXT as ModeFetchNext
+  , DPI_MODE_FETCH_FIRST as ModeFetchFirst
+  , DPI_MODE_FETCH_LAST as ModeFetchLast
+  , DPI_MODE_FETCH_PRIOR as ModeFetchPrior
+  , DPI_MODE_FETCH_ABSOLUTE as ModeFetchAbsolute
+  , DPI_MODE_FETCH_RELATIVE as ModeFetchRelative
+  } deriving (Show, Eq) #}
+{#enum define MessageDeliveryMode
+  { DPI_MODE_MSG_PERSISTENT as ModeMsgPersistent
+  , DPI_MODE_MSG_BUFFERED as ModeMsgBuffered
+  , DPI_MODE_MSG_PERSISTENT_OR_BUFFERED as ModeMsgPersistentOrBuffered
+  } deriving (Show, Eq) #}
+{#enum define MessageState
+  { DPI_MSG_STATE_READY as MsgStateReady
+  , DPI_MSG_STATE_WAITING as MsgStateWaiting
+  , DPI_MSG_STATE_PROCESSED as MsgStateProcessed
+  , DPI_MSG_STATE_EXPIRED as MsgStateExpired
+  } deriving (Show, Eq) #}
+{#enum define NativeTypeNum
+  { DPI_NATIVE_TYPE_INT64 as NativeTypeInt64
+  , DPI_NATIVE_TYPE_UINT64 as NativeTypeUint64
+  , DPI_NATIVE_TYPE_FLOAT as NativeTypeFloat
+  , DPI_NATIVE_TYPE_DOUBLE as NativeTypeDouble
+  , DPI_NATIVE_TYPE_BYTES as NativeTypeBytes
+  , DPI_NATIVE_TYPE_TIMESTAMP as NativeTypeTimestamp
+  , DPI_NATIVE_TYPE_INTERVAL_DS as NativeTypeIntervalDs
+  , DPI_NATIVE_TYPE_INTERVAL_YM as NativeTypeIntervalYm
+  , DPI_NATIVE_TYPE_LOB as NativeTypeLob
+  , DPI_NATIVE_TYPE_OBJECT as NativeTypeObject
+  , DPI_NATIVE_TYPE_STMT as NativeTypeStmt
+  , DPI_NATIVE_TYPE_BOOLEAN as NativeTypeBoolean
+  , DPI_NATIVE_TYPE_ROWID as NativeTypeRowid
+  } deriving (Show, Eq, Generic) #}
+{#enum define OpCode
+  { DPI_OPCODE_ALL_OPS as OpcodeAllOps
+  , DPI_OPCODE_ALL_ROWS as OpcodeAllRows
+  , DPI_OPCODE_INSERT as OpcodeInsert
+  , DPI_OPCODE_UPDATE as OpcodeUpdate
+  , DPI_OPCODE_DELETE as OpcodeDelete
+  , DPI_OPCODE_ALTER as OpcodeAlter
+  , DPI_OPCODE_DROP as OpcodeDrop
+  , DPI_OPCODE_UNKNOWN as OpcodeUnknown
+  } deriving (Show, Eq) #}
+{#enum define OracleTypeNum
+  { DPI_ORACLE_TYPE_NONE as OracleTypeNone
+  , DPI_ORACLE_TYPE_VARCHAR as OracleTypeVarchar
+  , DPI_ORACLE_TYPE_NVARCHAR as OracleTypeNvarchar
+  , DPI_ORACLE_TYPE_CHAR as OracleTypeChar
+  , DPI_ORACLE_TYPE_NCHAR as OracleTypeNchar
+  , DPI_ORACLE_TYPE_ROWID as OracleTypeRowid
+  , DPI_ORACLE_TYPE_RAW as OracleTypeRaw
+  , DPI_ORACLE_TYPE_NATIVE_FLOAT as OracleTypeNativeFloat
+  , DPI_ORACLE_TYPE_NATIVE_DOUBLE as OracleTypeNativeDouble
+  , DPI_ORACLE_TYPE_NATIVE_INT as OracleTypeNativeInt
+  , DPI_ORACLE_TYPE_NUMBER as OracleTypeNumber
+  , DPI_ORACLE_TYPE_DATE as OracleTypeDate
+  , DPI_ORACLE_TYPE_TIMESTAMP as OracleTypeTimestamp
+  , DPI_ORACLE_TYPE_TIMESTAMP_TZ as OracleTypeTimestampTz
+  , DPI_ORACLE_TYPE_TIMESTAMP_LTZ as OracleTypeTimestampLtz
+  , DPI_ORACLE_TYPE_INTERVAL_DS as OracleTypeIntervalDs
+  , DPI_ORACLE_TYPE_INTERVAL_YM as OracleTypeIntervalYm
+  , DPI_ORACLE_TYPE_CLOB as OracleTypeClob
+  , DPI_ORACLE_TYPE_NCLOB as OracleTypeNclob
+  , DPI_ORACLE_TYPE_BLOB as OracleTypeBlob
+  , DPI_ORACLE_TYPE_BFILE as OracleTypeBfile
+  , DPI_ORACLE_TYPE_STMT as OracleTypeStmt
+  , DPI_ORACLE_TYPE_BOOLEAN as OracleTypeBoolean
+  , DPI_ORACLE_TYPE_OBJECT as OracleTypeObject
+  , DPI_ORACLE_TYPE_LONG_VARCHAR as OracleTypeLongVarchar
+  , DPI_ORACLE_TYPE_LONG_RAW as OracleTypeLongRaw
+  , DPI_ORACLE_TYPE_NATIVE_UINT as OracleTypeNativeUint
+  , DPI_ORACLE_TYPE_MAX as OracleTypeMax
+  } deriving (Show, Eq) #}
+{#enum define PoolCloseMode
+  { DPI_MODE_POOL_CLOSE_DEFAULT as ModePoolCloseDefault
+  , DPI_MODE_POOL_CLOSE_FORCE as ModePoolCloseForce
+  } deriving (Show, Eq) #}
+{#enum define PoolGetMode
+  { DPI_MODE_POOL_GET_WAIT as ModePoolGetWait
+  , DPI_MODE_POOL_GET_NOWAIT as ModePoolGetNowait
+  , DPI_MODE_POOL_GET_FORCEGET as ModePoolGetForceget
+  , DPI_MODE_POOL_GET_TIMEDWAIT as ModePoolGetTimedwait
+  } deriving (Show, Eq) #}
+{#enum define Purity
+  { DPI_PURITY_DEFAULT as PurityDefault
+  , DPI_PURITY_NEW as PurityNew
+  , DPI_PURITY_SELF as PuritySelf
+  } deriving (Show, Eq) #}
+{#enum define ShutdownMode
+  { DPI_MODE_SHUTDOWN_DEFAULT as ModeShutdownDefault
+  , DPI_MODE_SHUTDOWN_TRANSACTIONAL as ModeShutdownTransactional
+  , DPI_MODE_SHUTDOWN_TRANSACTIONAL_LOCAL as ModeShutdownTransactionalLocal
+  , DPI_MODE_SHUTDOWN_IMMEDIATE as ModeShutdownImmediate
+  , DPI_MODE_SHUTDOWN_ABORT as ModeShutdownAbort
+  , DPI_MODE_SHUTDOWN_FINAL as ModeShutdownFinal
+  } deriving (Show, Eq) #}
+-- {#enum define SodaFlag {} deriving (Show, Eq) #}
+{#enum define StartupMode
+  { DPI_MODE_STARTUP_DEFAULT as ModeStartupDefault
+  , DPI_MODE_STARTUP_FORCE as ModeStartupForce
+  , DPI_MODE_STARTUP_RESTRICT as ModeStartupRestrict
+  } deriving (Show, Eq) #}
+{#enum define StatementType
+  { DPI_STMT_TYPE_UNKNOWN as StmtTypeUnknown
+  , DPI_STMT_TYPE_SELECT as StmtTypeSelect
+  , DPI_STMT_TYPE_UPDATE as StmtTypeUpdate
+  , DPI_STMT_TYPE_DELETE as StmtTypeDelete
+  , DPI_STMT_TYPE_INSERT as StmtTypeInsert
+  , DPI_STMT_TYPE_CREATE as StmtTypeCreate
+  , DPI_STMT_TYPE_DROP as StmtTypeDrop
+  , DPI_STMT_TYPE_ALTER as StmtTypeAlter
+  , DPI_STMT_TYPE_BEGIN as StmtTypeBegin
+  , DPI_STMT_TYPE_DECLARE as StmtTypeDeclare
+  , DPI_STMT_TYPE_CALL as StmtTypeCall
+  , DPI_STMT_TYPE_EXPLAIN_PLAN as StmtTypeExplainPlan
+  , DPI_STMT_TYPE_MERGE as StmtTypeMerge
+  , DPI_STMT_TYPE_ROLLBACK as StmtTypeRollback
+  , DPI_STMT_TYPE_COMMIT as StmtTypeCommit
+  } deriving (Show, Eq) #}
+{#enum define SubscrGroupingClass
+  { DPI_SUBSCR_GROUPING_CLASS_TIME as SubscrGroupingClassTime
+  } deriving (Show, Eq) #}
+{#enum define SubscrGroupingType
+  { DPI_SUBSCR_GROUPING_TYPE_SUMMARY as SubscrGroupingTypeSummary
+  , DPI_SUBSCR_GROUPING_TYPE_LAST as SubscrGroupingTypeLast
+  } deriving (Show, Eq) #}
+{#enum define SubscrNamespace
+  { DPI_SUBSCR_NAMESPACE_AQ as SubscrNamespaceAq
+  , DPI_SUBSCR_NAMESPACE_DBCHANGE as SubscrNamespaceDbchange
+  } deriving (Show, Eq) #}
+{#enum define SubscrProtocol
+  { DPI_SUBSCR_PROTO_CALLBACK as SubscrProtoCallback
+  , DPI_SUBSCR_PROTO_MAIL as SubscrProtoMail
+  , DPI_SUBSCR_PROTO_PLSQL as SubscrProtoPlsql
+  , DPI_SUBSCR_PROTO_HTTP as SubscrProtoHttp
+  } deriving (Show, Eq) #}
+{#enum define SubscrQOS
+  { DPI_SUBSCR_QOS_RELIABLE as SubscrQosReliable
+  , DPI_SUBSCR_QOS_DEREG_NFY as SubscrQosDeregNfy
+  , DPI_SUBSCR_QOS_ROWIDS as SubscrQosRowids
+  , DPI_SUBSCR_QOS_QUERY as SubscrQosQuery
+  , DPI_SUBSCR_QOS_BEST_EFFORT as SubscrQosBestEffor
+  } deriving (Show, Eq) #}
+{#enum define Visibility
+  { DPI_VISIBILITY_IMMEDIATE as VisibilityImmediate
+  , DPI_VISIBILITY_ON_COMMIT as VisibilityOnCommit
+  } deriving (Show, Eq) #}
 
 instance Hashable NativeTypeNum
 
@@ -602,6 +775,7 @@ conn_commit = {#call Conn_commit #}
 conn_create = {#call Conn_create #}
 conn_deqObject = {#call Conn_deqObject #}
 conn_enqObject = {#call Conn_enqObject #}
+conn_getCallTimeout = {#call Conn_getCallTimeout #}
 conn_getCurrentSchema = {#call Conn_getCurrentSchema #}
 conn_getEdition = {#call Conn_getEdition #}
 conn_getEncodingInfo = {#call Conn_getEncodingInfo #}
@@ -611,11 +785,11 @@ conn_getInternalName = {#call Conn_getInternalName #}
 conn_getLTXID = {#call Conn_getLTXID #}
 conn_getObjectType = {#call Conn_getObjectType #}
 conn_getServerVersion = {#call Conn_getServerVersion #}
+conn_getSodaDb = {#call Conn_getSodaDb #}
 conn_getStmtCacheSize = {#call Conn_getStmtCacheSize #}
 conn_newDeqOptions = {#call Conn_newDeqOptions #}
 conn_newEnqOptions = {#call Conn_newEnqOptions #}
 conn_newMsgProps = {#call Conn_newMsgProps #}
-conn_newSubscription = {#call Conn_newSubscription #}
 conn_newTempLob = {#call Conn_newTempLob #}
 conn_newVar = {#call Conn_newVar #}
 conn_ping = {#call Conn_ping #}
@@ -624,6 +798,7 @@ conn_prepareStmt = {#call Conn_prepareStmt #}
 conn_release = {#call Conn_release #}
 conn_rollback = {#call Conn_rollback #}
 conn_setAction = {#call Conn_setAction #}
+conn_setCallTimeout = {#call Conn_setCallTimeout #}
 conn_setClientIdentifier = {#call Conn_setClientIdentifier #}
 conn_setClientInfo = {#call Conn_setClientInfo #}
 conn_setCurrentSchema = {#call Conn_setCurrentSchema #}
@@ -646,6 +821,7 @@ context_getError = {#call Context_getError #}
 context_initCommonCreateParams = {#call Context_initCommonCreateParams #}
 context_initConnCreateParams = {#call Context_initConnCreateParams #}
 context_initPoolCreateParams = {#call Context_initPoolCreateParams #}
+context_initSodaOperOptions = {#call Context_initSodaOperOptions #}
 context_initSubscrCreateParams = {#call Context_initSubscrCreateParams #}
 
 -- ** Data
@@ -657,6 +833,7 @@ data_getFloat = {#call Data_getFloat #}
 data_getInt64 = {#call Data_getInt64 #}
 data_getIntervalDS = {#call Data_getIntervalDS #}
 data_getIntervalYM = {#call Data_getIntervalYM #}
+data_getIsNull = {#call Data_getIsNull #}
 data_getLOB = {#call Data_getLOB #}
 data_getObject = {#call Data_getObject #}
 data_getStmt = {#call Data_getStmt #}
@@ -670,6 +847,7 @@ data_setInt64 = {#call Data_setInt64 #}
 data_setIntervalDS = {#call Data_setIntervalDS #}
 data_setIntervalYM = {#call Data_setIntervalYM #}
 data_setLOB = {#call Data_setLOB #}
+data_setNull = {#call Data_setNull #}
 data_setObject = {#call Data_setObject #}
 data_setStmt = {#call Data_setStmt #}
 data_setTimestamp = {#call Data_setTimestamp #}
@@ -712,9 +890,9 @@ enqOptions_setVisibility = {#call EnqOptions_setVisibility #}
 -- ** LOB
 
 lob_addRef = {#call Lob_addRef #}
+lob_close = {#call Lob_close #}
 lob_closeResource = {#call Lob_closeResource #}
 lob_copy = {#call Lob_copy #}
-lob_flushBuffer = {#call Lob_flushBuffer #}
 lob_getBufferSize = {#call Lob_getBufferSize #}
 lob_getChunkSize = {#call Lob_getChunkSize #}
 lob_getDirectoryAndFileName = {#call Lob_getDirectoryAndFileName #}
@@ -739,7 +917,9 @@ msgProps_getDeliveryMode = {#call MsgProps_getDeliveryMode #}
 msgProps_getEnqTime = {#call MsgProps_getEnqTime #}
 msgProps_getExceptionQ = {#call MsgProps_getExceptionQ #}
 msgProps_getExpiration = {#call MsgProps_getExpiration #}
+--msgProps_getMsgId = {#call MsgProps_getMsgId #}
 msgProps_getOriginalMsgId = {#call MsgProps_getOriginalMsgId #}
+--msgProps_getPayload = {#call MsgProps_getPayload #}
 msgProps_getPriority = {#call MsgProps_getPriority #}
 msgProps_getState = {#call MsgProps_getState #}
 msgProps_release = {#call MsgProps_release #}
@@ -748,6 +928,8 @@ msgProps_setDelay = {#call MsgProps_setDelay #}
 msgProps_setExceptionQ = {#call MsgProps_setExceptionQ #}
 msgProps_setExpiration = {#call MsgProps_setExpiration #}
 msgProps_setOriginalMsgId = {#call MsgProps_setOriginalMsgId #}
+--msgProps_setPayloadBytes = {#call MsgProps_setPayloadBytes #}
+--msgProps_setPayloadObject = {#call MsgProps_setPayloadObject #}
 msgProps_setPriority = {#call MsgProps_setPriority #}
 
 -- ** Object
@@ -804,6 +986,17 @@ pool_setStmtCacheSize = {#call Pool_setStmtCacheSize #}
 pool_setTimeout = {#call Pool_setTimeout #}
 pool_setWaitTimeout = {#call Pool_setWaitTimeout #}
 
+-- ** AQ Queue
+
+-- queue_addRef = {#call Queue_addRef #}
+-- queue_deqMany = {#call Queue_deqMany #}
+-- queue_deqOne = {#call Queue_deqOne #}
+-- queue_enqMany = {#call Queue_enqMany #}
+-- queue_enqOne = {#call Queue_enqOne #}
+-- queue_getDeqOptions = {#call Queue_getDeqOptions #}
+-- queue_getEnqOptions = {#call Queue_getEnqOptions #}
+-- queue_release = {#call Queue_release #}
+
 -- ** Rowid
 
 rowid_addRef = {#call Rowid_addRef #}
@@ -844,7 +1037,6 @@ stmt_setFetchArraySize = {#call Stmt_setFetchArraySize #}
 -- ** Subscr
 
 subscr_addRef = {#call Subscr_addRef #}
-subscr_close = {#call Subscr_close #}
 subscr_prepareStmt = {#call Subscr_prepareStmt #}
 subscr_release = {#call Subscr_release #}
 
@@ -852,7 +1044,6 @@ subscr_release = {#call Subscr_release #}
 
 var_addRef = {#call Var_addRef #}
 var_copyData = {#call Var_copyData #}
-var_getData = {#call Var_getData #}
 var_getNumElementsInArray = {#call Var_getNumElementsInArray #}
 var_getReturnedData = {#call Var_getReturnedData #}
 var_getSizeInBytes = {#call Var_getSizeInBytes #}
